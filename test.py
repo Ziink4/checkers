@@ -1,7 +1,7 @@
 import checkers
 import agent
 import arthur
-import random_agent
+import kevin
 
 BLACK, WHITE = 0, 1
 
