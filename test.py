@@ -7,11 +7,11 @@ BLACK, WHITE = 0, 1
 
 f = open('logfile', 'w')
 
-for i in range(10):
+for i in range(100):
     print "game: " + str(i)
     B = checkers.CheckerBoard()
-    cpu_1 = agent.CheckersAgent(lambda board: random_agent.move_function(board))
-    cpu_2 = agent.CheckersAgent(lambda board: random_agent.move_function(board))
+    cpu_1 = agent.CheckersAgent(lambda board: arthur.move_function(board, 2))
+    cpu_2 = agent.CheckersAgent(lambda board: arthur.move_function(board, 2))
     current_player = B.active
     turn = 1
 
