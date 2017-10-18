@@ -349,12 +349,14 @@ def move_function(board, depth=7):
             return negamax(board, B, depth, -INFINITY, INFINITY, -1)
 
     return max(board.get_moves(), key=search)
-    #pairs = zip(zip(board.get_moves(), get_move_strings(board)),
-                #map(search, board.get_moves()))
-    #print "Moves and ratings"
-    #for pair in pairs:
-        #print pair[0][1] + " with a rating of " + str(pair[1])
-    #print ""
-    #best_pair = max(pairs, key=lambda x: x[1])
-    #return best_pair[0][0]
-
+    """
+    # Old method used by the original author to compute AND display move scores
+    pairs = zip(zip(board.get_moves(), board.get_move_strings()),
+                map(search, board.get_moves()))
+    print "Moves and ratings"
+    for pair in pairs:
+        print pair[0][1] + " with a rating of " + str(pair[1])
+    print ""
+    best_pair = max(pairs, key=lambda x: x[1])
+    return best_pair[0][0]
+    """
