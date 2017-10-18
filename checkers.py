@@ -199,6 +199,54 @@ class CheckerBoard:
             moves += [0x21 << i - 5 for (i, bit) in enumerate(bin(lb)[::-1]) if bit == '1']
             return moves
 
+    def get_move_strings(self):
+        rfj = self.right_forward_jumps()
+        lfj = self.left_forward_jumps()
+        rbj = self.right_backward_jumps()
+        lbj = self.left_backward_jumps()
+
+        if (rfj | lfj | rbj | lbj) != 0:
+            rfj = [(1 + i - i//9, 1 + (i + 8) - (i + 8)//9)
+                        for (i, bit) in enumerate(bin(rfj)[::-1]) if bit == '1']
+            lfj = [(1 + i - i//9, 1 + (i + 10) - (i + 8)//9)
+                        for (i, bit) in enumerate(bin(lfj)[::-1]) if bit == '1']
+            rbj = [(1 + i - i//9, 1 + (i - 8) - (i - 8)//9)
+                        for (i, bit) in enumerate(bin(rbj)[::-1]) if bit ==  '1']
+            lbj = [(1 + i - i//9, 1 + (i - 10) - (i - 10)//9)
+                        for (i, bit) in enumerate(bin(lbj)[::-1]) if bit == '1']
+
+            if self.active == BLACK:
+                regular_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rfj + lfj]
+                reverse_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rbj + lbj]
+                return regular_moves + reverse_moves
+            else:
+                reverse_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rfj + lfj]
+                regular_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rbj + lbj]
+                return reverse_moves + regular_moves
+
+
+        rf = self.right_forward()
+        lf = self.left_forward()
+        rb = self.right_backward()
+        lb = self.left_backward()
+
+        rf = [(1 + i - i//9, 1 + (i + 4) - (i + 4)//9)
+                    for (i, bit) in enumerate(bin(rf)[::-1]) if bit == '1']
+        lf = [(1 + i - i//9, 1 + (i + 5) - (i + 5)//9)
+                    for (i, bit) in enumerate(bin(lf)[::-1]) if bit == '1']
+        rb = [(1 + i - i//9, 1 + (i - 4) - (i - 4)//9)
+                    for (i, bit) in enumerate(bin(rb)[::-1]) if bit ==  '1']
+        lb = [(1 + i - i//9, 1 + (i - 5) - (i - 5)//9)
+                    for (i, bit) in enumerate(bin(lb)[::-1]) if bit == '1']
+
+        if self.active == BLACK:
+            regular_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rf + lf]
+            reverse_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rb + lb]
+            return regular_moves + reverse_moves
+        else:
+            regular_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rb + lb]
+            reverse_moves = ["%i to %i" % (orig, dest) for (orig, dest) in rf + lf]
+            return reverse_moves + regular_moves
 
     def get_jumps(self):
         """
