@@ -162,15 +162,18 @@ def main():
         B = checkers.CheckerBoard()
         current_player = B.active
         while not B.is_over():
-            if debug: print B
             B.make_move(cpu_1.make_move(B))
+            if debug: print B
             if B.active == current_player:
                 continue
             current_player = B.active
             while B.active == current_player and not B.is_over():
                 B.make_move(cpu_2.make_move(B))
+                if debug: print B
             current_player = B.active
-        if B.active == WHITE:
+        if B.is_draw():
+            print "It's a draw !"
+        elif B.active == WHITE:
             print "Congrats Black, you win!"
         else:
             print "Congrats White, you win!"
