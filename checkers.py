@@ -36,6 +36,7 @@ class CheckerBoard:
         self.forward = [None, None]
         self.backward = [None, None]
         self.pieces = [None, None]
+        self.history = {}
         self.new_game()
 
     def new_game(self):
@@ -57,6 +58,8 @@ class CheckerBoard:
 
         self.jump = 0
         self.mandatory_jumps = []
+
+        self.history = {None: None}
 
     def make_move(self, move):
         """
@@ -99,6 +102,7 @@ class CheckerBoard:
 
         self.jump = 0
         self.active, self.passive = self.passive, self.active
+        self.update_history()
 
     def peek_move(self, move):
         """
@@ -272,7 +276,10 @@ class CheckerBoard:
         return False
 
     def is_over(self):
-        return len(self.get_moves()) == 0
+        return len(self.get_moves()) == 0 or self.is_draw()
+
+    def is_draw(self):
+        return max(self.history.values()) >= 3
 
     def copy(self):
         """
@@ -288,6 +295,13 @@ class CheckerBoard:
         B.passive = self.passive
         B.pieces = [x for x in self.pieces]
         return B
+
+    def update_history(self):
+        data = str((self.active, self.backward, self.empty, self.forward, self.jump, self.mandatory_jumps, self.passive, self.pieces))
+        if data in self.history:
+            self.history[data] += 1
+        else:
+            self.history[data] = 1
 
     def __str__(self):
         """
