@@ -156,29 +156,25 @@ def main():
         __import__(agent_module)
         agent_module = sys.modules[agent_module]
         cpu_2 = agent.CheckersAgent(agent_module.move_function)
-        debug = raw_input("Would you like to step through game play? [Y/N]: ")
+        #TODO : Redefine debug behavior to be able to do step-by-step gameplay
+        debug = raw_input("Would you like to DISPLAY game play? [Y/N]: ")
         debug = 1 if debug.lower()[0] == 'y' else 0
         B = checkers.CheckerBoard()
         current_player = B.active
-        if debug:
-            print "sorry not ready"
-            return 0
+        while not B.is_over():
+            if debug: print B
+            B.make_move(cpu_1.make_move(B))
+            if B.active == current_player:
+                continue
+            current_player = B.active
+            while B.active == current_player and not B.is_over():
+                B.make_move(cpu_2.make_move(B))
+            current_player = B.active
+        if B.active == WHITE:
+            print "Congrats Black, you win!"
         else:
-            while not B.is_over():
-                B.make_move(cpu_1.make_move(B))
-                if B.active == current_player:
-                    continue
-                current_player = B.active
-                while B.active == current_player and not B.is_over():
-                    B.make_move(cpu_2.make_move(B))
-                current_player = B.active
-            if B.active == WHITE:
-                print "Congrats Black, you win!"
-            else:
-                print "Congrats White, you win!"
-            return 0
-
-
+            print "Congrats White, you win!"
+        return 0
 
 def game_over(board):
     return len(board.get_moves()) == 0
