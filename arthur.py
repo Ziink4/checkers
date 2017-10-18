@@ -278,6 +278,8 @@ def position_score(board, player):
     return total
 
 def score(board_old, board_new):
+    if board_old.is_draw() or board_new.is_draw():
+        return 0
     if board_old.is_over():
         return -INFINITY
     if board_new.is_over():

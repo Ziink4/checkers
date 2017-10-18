@@ -146,6 +146,7 @@ class CheckerBoard:
 
         B.jump = 0
         B.active, B.passive = B.passive, B.active
+        B.update_history()
 
         return B
 
@@ -342,6 +343,7 @@ class CheckerBoard:
         B.mandatory_jumps = [x for x in self.mandatory_jumps]
         B.passive = self.passive
         B.pieces = [x for x in self.pieces]
+        B.history = {k: v for k, v in self.history.items()}
         return B
 
     def update_history(self):
