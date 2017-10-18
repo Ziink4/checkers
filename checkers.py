@@ -9,6 +9,13 @@
 
 ### CONSTANTS
 
+# In-Terminal text coloration codes, to make the board more readable.
+# Standard colors are Red and White
+#TODO : Find a way to add background color to cells
+BLACK_COLOR = "\033[41m\033[97m" # Red background, White text
+WHITE_COLOR = "\033[107m\033[30m" # White background, Black text
+RESET_COLOR = "\033[0m" # Reset to default colors
+
 # Black moves "forward", white moves "backward"
 BLACK, WHITE = 0, 1
 
@@ -330,32 +337,32 @@ class CheckerBoard:
                 if j < 4:
                     if cell == BLACK:
                         board[2*(7 - 2*i) + 1][2*(6 - 2*j) + 1] = \
-                                "b" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                BLACK_COLOR + "b" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     elif cell == WHITE:
                         board[2*(7 - 2*i) + 1][2*(6 - 2*j) + 1] = \
-                                "w" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                WHITE_COLOR + "w" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     elif cell == BLACK_KING:
                         board[2*(7 - 2*i) + 1][2*(6 - 2*j) + 1] = \
-                                "B" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                BLACK_COLOR + "B" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     elif cell == WHITE_KING:
                         board[2*(7 - 2*i) + 1][2*(6 - 2*j) + 1] = \
-                                "W" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                WHITE_COLOR + "W" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     else:
                         board[2*(7 - 2*i) + 1][2*(6 - 2*j) + 1] = \
                                 " " + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
                 else:
                     if cell == BLACK:
                         board[2*(6 - 2*i) + 1][2*(7 - 2*j) - 1] = \
-                                "b" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                BLACK_COLOR + "b" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     elif cell == WHITE:
                         board[2*(6 - 2*i) + 1][2*(7 - 2*j) - 1] = \
-                                "w" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                WHITE_COLOR + "w" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     elif cell == BLACK_KING:
                         board[2*(6 - 2*i) + 1][2*(7 - 2*j) - 1] = \
-                                "B" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                BLACK_COLOR + "B" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     elif cell == WHITE_KING:
                         board[2*(6 - 2*i) + 1][2*(7 - 2*j) - 1] = \
-                                "W" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
+                                WHITE_COLOR + "W" + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '') + RESET_COLOR
                     else:
                         board[2*(6 - 2*i) + 1][2*(7 - 2*j) - 1] = \
                                 " " + str(1 + j + 8*i) + (' ' if j + 8*i < 9 else '')
