@@ -36,7 +36,7 @@ def main():
         print "Black moves first."
         turn = 1
         current_player = B.active
-        while not game_over(B):
+        while not B.is_over():
             print B
 
             legal_moves = B.get_moves()
@@ -175,9 +175,6 @@ def main():
         else:
             print "Congrats White, you win!"
         return 0
-
-def game_over(board):
-    return len(board.get_moves()) == 0
 
 def get_move_strings(board):
     rfj = board.right_forward_jumps()
